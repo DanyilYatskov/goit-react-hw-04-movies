@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-//import PropTypes from 'prop-types';
-//import fetchAPI from '../../../API/fetchAPI';
 import styles from './searchForm.module.scss';
 
 class SearchForm extends Component {
@@ -15,7 +13,7 @@ class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.onShowGalleryByQuery(this.state);
+    //this.props.onShowGalleryByQuery(this.state);
     this.setState({ query: '' });
   };
 
@@ -33,7 +31,7 @@ class SearchForm extends Component {
           type="text"
           autoComplete="off"
           autoFocus
-          placeholder="Search images and photos"
+          placeholder="Search movies by name"
           value={query}
           onChange={this.handleChange}
         />

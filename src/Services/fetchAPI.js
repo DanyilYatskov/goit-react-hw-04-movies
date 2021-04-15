@@ -1,9 +1,3 @@
-import Pagination from 'tui-pagination';
-import { initProgramFilmoteka } from './moviesListEventsHandler';
-import movieListTmp from '../../template/moviesListTemplate.hbs';
-import renderMovies from './renderMovies.js';
-import refs from '../refs.js';
-import spinner from '../spinner';
 import myKey from './movieDbKey';
 
 //const myKey = '1690d1319b4e719ac3308f10c68ac649';
@@ -18,12 +12,7 @@ const fetchAPI = {
   validTimeWindow: 'day', //day,week  /  выбор между тренды за неделю или за день
   validMediaType: 'movie', //all,movie,tv,person / тренды выбор всё,толькоо фильмы,только сериалы, по популярным актёрам
   genresArray: [], // массив ид и имен жанров
-  errorHandler(error) {
-    //обработчик ошибок ( кетчей )
-    refs.pagination.classList.add('is-hidden');
-    refs.errorContainerRef.innerHTML =
-      error + '. It is a server error , Pls just try again!';
-  },
+
   fetchGenres() {
     //Функция забирает с сервера массив с именами и ид жанров
     const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${myKey}&language=${this.language}`;
@@ -103,12 +92,12 @@ const fetchAPI = {
         //this.page += 1;
         return response;
       })
-      .catch(this.errorHandler);
+      .catch(e => console.log(e));
   },
   getTrendingMovies(page = 1) {
     //Забирает с сервера трендовые фильмы , по умолчанию за день
     this.moviesSearchActive = false;
-    refs.movieInputRef.value = '';
+    // refs.movieInputRef.value = '';
     const url = `https://api.themoviedb.org/3/trending/${this.validMediaType}/${this.validTimeWindow}?api_key=${myKey}&language=${this.language}&page=${page}&per_page=${this.itemsPerPage}`;
     this.fetchGenres();
     return fetch(url)
@@ -123,7 +112,7 @@ const fetchAPI = {
         this.page += 1;
         return response;
       })
-      .catch(this.errorHandler);
+      .catch(e => console.log(e));
   },
   getFullMovieInfo(movie_Id) {
     // возвращает полное инфо по фильму
@@ -146,39 +135,39 @@ const fetchAPI = {
         }
         return response;
       })
-      .catch(this.errorHandler);
+      .catch(e => console.log(e));
   },
 
-  async searchMovies(page = 1) {
-    //рендер результата поиска возвращает промис
-    //moviesContainerRef.innerHTML = '';
+  // async searchMovies(page = 1) {
+  //   //рендер результата поиска возвращает промис
+  //   //moviesContainerRef.innerHTML = '';
 
-    refs.pagination.classList.remove('is-hidden');
-    return this.searchMoviesbyTag(page)
-      .then(response => {
-        spinner.hide();
-        if (response === undefined) {
-          return;
-        }
-        renderMovies(response.results, refs.gallery, movieListTmp);
-        //console.log(response);
-        return response;
-      })
-      .catch(this.errorHandler);
-  },
-  async showMoviesInTrend(page = 1) {
-    //рендер трендовых возвращает промис
-    //moviesContainerRef.innerHTML = '';
+  //   refs.pagination.classList.remove('is-hidden');
+  //   return this.searchMoviesbyTag(page)
+  //     .then(response => {
+  //       spinner.hide();
+  //       if (response === undefined) {
+  //         return;
+  //       }
+  //       renderMovies(response.results, refs.gallery, movieListTmp);
+  //       //console.log(response);
+  //       return response;
+  //     })
+  //     .catch(this.errorHandler);
+  // },
+  // async showMoviesInTrend(page = 1) {
+  //   //рендер трендовых возвращает промис
+  //   //moviesContainerRef.innerHTML = '';
 
-    refs.pagination.classList.remove('is-hidden');
-    return this.getTrendingMovies(page)
-      .then(response => {
-        renderMovies(response.results, refs.gallery, movieListTmp);
-        //console.log(response);
-        return response;
-      })
-      .catch(this.errorHandler);
-  },
+  //   refs.pagination.classList.remove('is-hidden');
+  //   return this.getTrendingMovies(page)
+  //     .then(response => {
+  //       renderMovies(response.results, refs.gallery, movieListTmp);
+  //       //console.log(response);
+  //       return response;
+  //     })
+  //     .catch(this.errorHandler);
+  // },
 };
 
 export default fetchAPI;
