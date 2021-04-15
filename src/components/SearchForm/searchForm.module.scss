@@ -1,10 +1,9 @@
-
 .SearchForm {
   display: flex;
   align-items: center;
   width: 100%;
   max-width: 600px;
-  background-color: #fff;
+  background-color: #333333;
   border-radius: 3px;
   overflow: hidden;
 }
@@ -49,6 +48,8 @@
   outline: none;
   padding-left: 4px;
   padding-right: 4px;
+  background-color: #333333;
+  color: #a9a9a9;
 }
 
 .input::placeholder {

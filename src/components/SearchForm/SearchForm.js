@@ -13,7 +13,7 @@ class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    //this.props.onShowGalleryByQuery(this.state);
+    this.props.onSearchMovieByQuery(this.state);
     this.setState({ query: '' });
   };
 

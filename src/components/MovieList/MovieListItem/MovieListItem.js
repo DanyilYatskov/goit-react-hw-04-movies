@@ -4,9 +4,9 @@ import styles from './movieListItem.module.scss';
 
 const MovieListItem = ({ movie, location }) => {
   const src = `https://image.tmdb.org/t/p/w300${movie.poster_path}`;
-  const handleNoImage = () => {
-    this.onError = null;
-    this.src =
+  const handleNoImage = e => {
+    e.target.onerror = null;
+    e.target.src =
       'https://i.pinimg.com/564x/12/61/84/126184dfb0f0c766bfd35206dae35b37.jpg';
   };
   return (
