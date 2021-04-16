@@ -1,7 +1,5 @@
 import myKey from './movieDbKey';
 
-//const myKey = '1690d1319b4e719ac3308f10c68ac649';
-
 const fetchAPI = {
   moviesSearchActive: false, // ищем фильмы или рендер трендовых
   searchTag: '',
@@ -78,13 +76,7 @@ const fetchAPI = {
         }
       })
       .then(response => {
-        //console.log(response); // в консоле можно посмотреть что пришло нам
         if (response.results.length === 0) {
-          // refs.errorContainerRef.innerHTML =
-          //   'Search result not successful. Enter the correct movie name and try again';
-          // refs.pagination.classList.add('is-hidden');
-          // refs.gallery.innerHTML =
-          //   'Search result not successful. Enter the correct movie name and try again';
           return;
         }
         this.getMoviesWithGenreNames(response);
@@ -116,7 +108,6 @@ const fetchAPI = {
   },
   getFullMovieInfo(movie_Id) {
     // возвращает полное инфо по фильму
-    // movie_Id можно взять из Li dataset.movieId к примеру getFullMovieInfo(event.target.dataset.movieId)
     const url = `https://api.themoviedb.org/3/movie/${movie_Id}?api_key=${myKey}&language=en-US`;
     return fetch(url)
       .then(response => {
@@ -137,37 +128,6 @@ const fetchAPI = {
       })
       .catch(e => console.log(e));
   },
-
-  // async searchMovies(page = 1) {
-  //   //рендер результата поиска возвращает промис
-  //   //moviesContainerRef.innerHTML = '';
-
-  //   refs.pagination.classList.remove('is-hidden');
-  //   return this.searchMoviesbyTag(page)
-  //     .then(response => {
-  //       spinner.hide();
-  //       if (response === undefined) {
-  //         return;
-  //       }
-  //       renderMovies(response.results, refs.gallery, movieListTmp);
-  //       //console.log(response);
-  //       return response;
-  //     })
-  //     .catch(this.errorHandler);
-  // },
-  // async showMoviesInTrend(page = 1) {
-  //   //рендер трендовых возвращает промис
-  //   //moviesContainerRef.innerHTML = '';
-
-  //   refs.pagination.classList.remove('is-hidden');
-  //   return this.getTrendingMovies(page)
-  //     .then(response => {
-  //       renderMovies(response.results, refs.gallery, movieListTmp);
-  //       //console.log(response);
-  //       return response;
-  //     })
-  //     .catch(this.errorHandler);
-  // },
 };
 
 export default fetchAPI;

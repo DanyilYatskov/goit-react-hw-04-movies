@@ -12,6 +12,11 @@ const HomeView = lazy(() =>
 const MoviesView = lazy(() =>
   import('./views/MoviesView.js' /* webpackChunkName: "moviesSearch-view" */),
 );
+const MovieDetailsView = lazy(() =>
+  import(
+    './views/MovieDetailsView.js' /* webpackChunkName: "movieDetails-view" */
+  ),
+);
 function App() {
   return (
     <>
@@ -21,6 +26,10 @@ function App() {
           <Switch>
             <Route exact path={routes.homePage} component={HomeView} />
             <Route exact path={routes.moviesPage} component={MoviesView} />
+            <Route
+              path={routes.movieDetailsPage}
+              component={MovieDetailsView}
+            />
             <Route component={NotFoundView} />
           </Switch>
         </Suspense>

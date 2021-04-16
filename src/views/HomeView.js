@@ -10,7 +10,9 @@ class HomeView extends Component {
 
   async componentDidMount() {
     const response = await fetchAPI.getTrendingMovies();
-    this.setState({ movies: response.results });
+    if (response) {
+      this.setState({ movies: response.results });
+    }
   }
 
   render() {
