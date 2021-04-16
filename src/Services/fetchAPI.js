@@ -116,14 +116,6 @@ const fetchAPI = {
         }
       })
       .then(response => {
-        //const arrayWithGenresNames = response.genres.map(genre => genre.name);
-        //response.genres = arrayWithGenresNames.slice();
-        //console.log(response);
-        if (response.release_date === '') {
-          response.release_date = 'Year';
-        } else {
-          response.release_date = response.release_date.substring(0, 4);
-        }
         return response;
       })
       .catch(e => console.log(e));

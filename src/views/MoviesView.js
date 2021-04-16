@@ -15,7 +15,7 @@ class MoviesView extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.searchMovies();
-      console.log(this.movies);
+      //console.log(this.movies);
     }
   }
 
@@ -31,7 +31,17 @@ class MoviesView extends Component {
   searchMovies = () => {
     this.setState({ showLoader: true });
     const { searchQuery } = this.state;
+    const { location } = this.props;
     fetchAPI.movieName = searchQuery;
+    if (location.state && location.state.from) {
+      fetchAPI.movieName = location.state.from.params;
+    }
+    // if (location.params) {
+    //   fetchAPI.movieName = location.params;
+    //   console.log('locparams', location.params);
+    // }
+    location.params = searchQuery;
+    console.log('fetchAPI.movieName:', fetchAPI.movieName);
     fetchAPI
       .searchMoviesbyTag()
       .then(({ results }) => {

@@ -7,32 +7,32 @@ import handleNoImage from '../Services/handleNoImage';
 class MovieDetailsView extends Component {
   state = {
     movie: {},
+    query: '',
   };
 
   handleGoBack = () => {
     const { location, history } = this.props;
-
+    location.params = location.state.from.params;
+    console.log('location.params-', location.params);
     if (location.state && location.state.from) {
       return history.push(location.state.from);
     }
-
     history.push(routes.moviesPage);
-
-    // history.push(location?.state?.from || routes.books);
   };
 
   async componentDidMount() {
     const { movieID } = this.props.match.params;
-    console.log(movieID);
-    const response = await fetchAPI.getFullMovieInfo(movieID).then(response => {
-      if (response !== undefined) {
-        return {
-          ...response,
-          genres: response.genres.map(genre => genre.name).join(),
-        };
-      }
-    });
-    console.log(response);
+    const response = await fetchAPI
+      .getFullMovieInfo(movieID)
+      .then(response => {
+        if (response !== undefined) {
+          return {
+            ...response,
+            genres: response.genres.map(genre => genre.name).join(),
+          };
+        }
+      })
+      .catch(error => console.log(error));
     if (response) {
       this.setState({ movie: response });
     }
