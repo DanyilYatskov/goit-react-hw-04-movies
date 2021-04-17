@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import fetchAPI from '../../Services/fetchAPI';
-import { withRouter } from 'react-router-dom';
+//import { withRouter } from 'react-router-dom';
 import BigTitle from '../BigTitle';
 
 class MovieReviews extends Component {

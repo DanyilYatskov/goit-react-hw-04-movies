@@ -3,11 +3,10 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { NavLink, Route } from 'react-router-dom';
 import MovieReviews from '../MovieReviews';
-import routes from '../../routes';
 import handleNoImage from '../../Services/handleNoImage';
 import styles from './movieInfo.module.scss';
 
-const MovieInfo = ({ movie, handleGoBack, reviews, match, location }) => {
+const MovieInfo = ({ movie, handleGoBack, match }) => {
   const src = `https://image.tmdb.org/t/p/w300${movie.poster_path}`;
   const btnText = '<-Go back';
   //console.log(match);
@@ -52,7 +51,10 @@ const MovieInfo = ({ movie, handleGoBack, reviews, match, location }) => {
       </nav>
       <Route
         path={`${match.url}/reviews`}
-        render={() => <MovieReviews match={match} location={location} />}
+        render={props => {
+          console.log('renderoprops', props);
+          return <MovieReviews match={match} />;
+        }}
       ></Route>
     </>
   );
@@ -68,5 +70,4 @@ MovieInfo.propTypes = {
   //   genres: PropTypes.string.isRequired,
   // }),
   movie: PropTypes.object.isRequired,
-  reviews: PropTypes.array.isRequired,
 };
