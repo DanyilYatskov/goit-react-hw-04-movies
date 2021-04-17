@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Button from '../Button';
 import handleNoImage from '../../Services/handleNoImage';
 import styles from './movieInfo.module.scss';
 
@@ -38,11 +37,11 @@ const MovieInfo = ({ movie, handleGoBack }) => {
 export default withRouter(MovieInfo);
 
 MovieInfo.propTypes = {
-  //   movie: PropTypes.shape({
-  //     title: PropTypes.string.isRequired,
-  //     vote_average: PropTypes.number.isRequired,
-  //     overview: PropTypes.string.isRequired,
-  //     genres: PropTypes.string.isRequired,
-  //   }),
+  // movie: PropTypes.shape({
+  //   title: PropTypes.string.isRequired,
+  //   vote_average: PropTypes.number.isRequired,
+  //   overview: PropTypes.string.isRequired,
+  //   genres: PropTypes.string.isRequired,
+  // }),
   movie: PropTypes.object.isRequired,
 };

@@ -13,7 +13,6 @@ class MovieDetailsView extends Component {
   handleGoBack = () => {
     const { location, history } = this.props;
     location.params = location.state.from.params;
-    console.log('location.params-', location.params);
     if (location.state && location.state.from) {
       return history.push(location.state.from);
     }
