@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { NavLink, Route } from 'react-router-dom';
 import MovieReviews from '../MovieReviews';
+import Cast from '../Cast';
 import handleNoImage from '../../Services/handleNoImage';
 import styles from './movieInfo.module.scss';
 
@@ -54,6 +55,13 @@ const MovieInfo = ({ movie, handleGoBack, match }) => {
         render={props => {
           console.log('renderoprops', props);
           return <MovieReviews match={match} />;
+        }}
+      ></Route>
+      <Route
+        path={`${match.url}/cast`}
+        render={props => {
+          console.log('renderoprops', props);
+          return <Cast match={match} />;
         }}
       ></Route>
     </>
