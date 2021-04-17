@@ -4,6 +4,7 @@ import fetchAPI from '../Services/fetchAPI';
 import Loader from '../components/Loader';
 import MovieList from '../components/MovieList';
 import SearchForm from '../components/SearchForm';
+import BigTitle from '../components/BigTitle';
 
 class MoviesView extends Component {
   state = {
@@ -13,6 +14,7 @@ class MoviesView extends Component {
   };
 
   componentDidMount() {
+    console.log('search-', this.props);
     const { location } = this.props;
     if (location && location.params) {
       this.setState({ searchQuery: location.params });
@@ -23,6 +25,7 @@ class MoviesView extends Component {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.searchMovies();
     }
+    // console.log('searchupdated-', this.props);
   }
 
   onNewSearch = ({ query }) => {
@@ -31,6 +34,7 @@ class MoviesView extends Component {
       searchQuery: query,
       movies: [],
       showLoader: false,
+      error: false,
     });
   };
 
@@ -43,20 +47,20 @@ class MoviesView extends Component {
     fetchAPI
       .searchMoviesbyTag()
       .then(({ results }) => {
-        if (results.length === 0) {
-          return;
+        if (results.length > 0) {
+          this.setState({ movies: results, error: false });
         }
-        this.setState({ movies: results });
       })
-      .catch(error => console.log(error))
+      .catch(error => this.setState({ error: true }))
       .finally(() => this.setState({ showLoader: false }));
   };
 
   render() {
-    const { showLoader, movies } = this.state;
+    const { showLoader, movies, error } = this.state;
     return (
       <>
         <SearchForm onSearchMovieByQuery={this.onNewSearch} />
+        {error && <BigTitle title="Server error , try again" />}
         {showLoader && <Loader />}
         <MovieList movies={movies} />
       </>

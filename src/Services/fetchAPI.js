@@ -120,6 +120,26 @@ const fetchAPI = {
       })
       .catch(e => console.log(e));
   },
+  getMovieReviews(movie_Id) {
+    const url = `https://api.themoviedb.org/3/movie/${movie_Id}/reviews?api_key=${myKey}&language=${this.language}&page=1`;
+    return fetch(url)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .catch(e => console.log(e));
+  },
+  getMovieCast(movie_Id) {
+    const url = `https://api.themoviedb.org/3/movie/${movie_Id}/credits?api_key=${myKey}&language=${this.language}`;
+    return fetch(url)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .catch(e => console.log(e));
+  },
 };
 
 export default fetchAPI;

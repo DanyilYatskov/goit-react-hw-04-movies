@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import styles from './searchForm.module.scss';
 
 class SearchForm extends Component {
@@ -8,7 +9,12 @@ class SearchForm extends Component {
 
   handleChange = event => {
     const { name, value } = event.target;
+    const { location, history } = this.props;
     this.setState({ [name.toLowerCase()]: value });
+    history.push({
+      ...location,
+      search: `?query=${value}`,
+    });
   };
 
   handleSubmit = event => {
@@ -40,4 +46,4 @@ class SearchForm extends Component {
   }
 }
 
-export default SearchForm;
+export default withRouter(SearchForm);

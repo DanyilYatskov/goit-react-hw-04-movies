@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 //import PropTypes from 'prop-types';
 //import fetchAPI from '../../../API/fetchAPI';
 import { NavLink } from 'react-router-dom';
@@ -12,14 +12,14 @@ const Navigation = () => {
         exact
         to={routes.homePage}
         className={styles.navLink}
-        activeClassName="active"
+        activeClassName={styles.activeNavLink}
       >
         Home
       </NavLink>
       <NavLink
         to={routes.moviesPage}
         className={styles.navLink}
-        activeClassName="active"
+        activeClassName={styles.activeNavLink}
       >
         Movies
       </NavLink>

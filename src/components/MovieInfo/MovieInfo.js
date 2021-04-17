@@ -1,13 +1,16 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { NavLink, Route } from 'react-router-dom';
+import MovieReviews from '../MovieReviews';
+import routes from '../../routes';
 import handleNoImage from '../../Services/handleNoImage';
 import styles from './movieInfo.module.scss';
 
-const MovieInfo = ({ movie, handleGoBack }) => {
+const MovieInfo = ({ movie, handleGoBack, reviews, match, location }) => {
   const src = `https://image.tmdb.org/t/p/w300${movie.poster_path}`;
   const btnText = '<-Go back';
-  console.log(movie);
+  //console.log(match);
   return (
     <>
       <button className={styles.button} type="button" onClick={handleGoBack}>
@@ -30,6 +33,27 @@ const MovieInfo = ({ movie, handleGoBack }) => {
         </div>
       </div>
       <p>Additional Information</p>
+      <nav className={styles.navigation}>
+        <NavLink
+          exact
+          to={`${match.url}/reviews`}
+          className={styles.navLink}
+          activeClassName={styles.activeNavLink}
+        >
+          Reviews
+        </NavLink>
+        <NavLink
+          to={`${match.url}/cast`}
+          className={styles.navLink}
+          activeClassName={styles.activeNavLink}
+        >
+          Cast
+        </NavLink>
+      </nav>
+      <Route
+        path={`${match.url}/reviews`}
+        render={() => <MovieReviews match={match} location={location} />}
+      ></Route>
     </>
   );
 };
@@ -44,4 +68,5 @@ MovieInfo.propTypes = {
   //   genres: PropTypes.string.isRequired,
   // }),
   movie: PropTypes.object.isRequired,
+  reviews: PropTypes.array.isRequired,
 };
