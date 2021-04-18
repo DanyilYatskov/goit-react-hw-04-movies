@@ -14,7 +14,6 @@ class MoviesView extends Component {
   };
 
   componentDidMount() {
-    console.log('search-', this.props);
     const { location } = this.props;
     if (location && location.params) {
       this.setState({ searchQuery: location.params });
@@ -25,7 +24,6 @@ class MoviesView extends Component {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.searchMovies();
     }
-    // console.log('searchupdated-', this.props);
   }
 
   onNewSearch = ({ query }) => {

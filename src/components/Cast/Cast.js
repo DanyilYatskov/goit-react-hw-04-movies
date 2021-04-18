@@ -9,35 +9,45 @@ class Cast extends Component {
   state = {
     cast: [],
     loader: false,
+    error: false,
   };
 
   async componentDidMount() {
-    this.setState({ loader: true });
+    this.setState({ loader: true, error: false });
     const { movieID } = this.props.match.params;
     const cast = await fetchAPI
       .getMovieCast(movieID)
+      .then(({ cast }) => {
+        if (cast.length === 0) {
+          this.setState({ error: true });
+        }
+        return cast;
+      })
+      .catch(e => this.setState({ error: true }))
       .finally(() => this.setState({ loader: false }));
     if (cast) {
-      this.setState({ cast: cast.cast });
+      this.setState({ cast: cast });
     }
   }
 
   render() {
-    const { cast, loader } = this.state;
-    const src = `https://image.tmdb.org/t/p/original${cast.profile_path}`;
-    console.log(cast);
+    const { cast, loader, error } = this.state;
+    //console.log('render cast props', this.props);
     return (
       <>
-        {cast.length === 0 && (
-          <BigTitle title=" There is no information about cast" />
-        )}
+        {error && <BigTitle title=" There is no information about cast" />}
         {loader && <Loader />}
         <ul>
           {cast.map(actor => {
             return (
               <li key={actor.id}>
                 <h4>{actor.name}</h4>
-                <img src={src} onError={handleNoImage} alt={actor.name} />
+                <img
+                  src={`https://image.tmdb.org/t/p/original${actor.profile_path}`}
+                  onError={handleNoImage}
+                  alt={actor.name}
+                  className={styles.photo}
+                />
                 <p>Character: {actor.character}</p>
               </li>
             );
