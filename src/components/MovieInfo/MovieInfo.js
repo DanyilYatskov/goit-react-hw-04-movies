@@ -13,9 +13,12 @@ const MovieInfo = ({ movie, handleGoBack }) => {
       </button>
       <div className={styles.movieCard}>
         <img
-          src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+          src={
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+              : 'https://i.pinimg.com/564x/12/61/84/126184dfb0f0c766bfd35206dae35b37.jpg'
+          }
           alt="It seems the poster is missing"
-          onError={handleNoImage}
           className={styles.poster}
         />
         <div className={styles.info}>

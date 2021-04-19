@@ -1,4 +1,5 @@
 import myKey from './movieDbKey';
+import baseURL from './baseURL';
 import getMoviesWithGenreNames from './getMoviesWithGenreNames';
 import trimmMovieYear from './trimmMovieYear';
 
@@ -6,7 +7,7 @@ const validTimeWindow = 'day'; //day,week  /  выбор между тренды
 const validMediaType = 'movie'; //all,movie,tv,person / тренды выбор всё,толькоо фильмы,только сериалы, по популярным актёрам
 
 const getTrendingMovies = (page = 1) => {
-  const url = `https://api.themoviedb.org/3/trending/${validMediaType}/${validTimeWindow}?api_key=${myKey}&language=en-US&page=${page}`;
+  const url = `${baseURL}/trending/${validMediaType}/${validTimeWindow}?api_key=${myKey}&language=en-US&page=${page}`;
   return fetch(url)
     .then(response => {
       if (response.ok) {

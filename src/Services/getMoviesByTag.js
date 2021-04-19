@@ -1,4 +1,5 @@
 import myKey from './movieDbKey';
+import baseURL from './baseURL';
 import getMoviesWithGenreNames from './getMoviesWithGenreNames';
 import trimmMovieYear from './trimmMovieYear';
 
@@ -22,7 +23,7 @@ const getMoviesByTag = {
   },
 
   searchMovies() {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${myKey}&language=en-US&query=${this.searchTag}&page=${this.page}&include_adult=${this.adult}`;
+    const url = `${baseURL}/search/movie?api_key=${myKey}&language=en-US&query=${this.searchTag}&page=${this.page}&include_adult=${this.adult}`;
     return fetch(url)
       .then(response => {
         if (response.ok) {
