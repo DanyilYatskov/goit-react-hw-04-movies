@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fetchAPI from '../Services/fetchAPI';
+import getTrendingMovies from '../Services/getTrendingMovies';
 import MovieList from '../components/MovieList';
 import BigTitle from '../components/BigTitle';
 
@@ -10,9 +10,9 @@ class HomeView extends Component {
   };
 
   async componentDidMount() {
-    const response = await fetchAPI
-      .getTrendingMovies()
-      .catch(() => this.setState({ error: true }));
+    const response = await getTrendingMovies().catch(() =>
+      this.setState({ error: true }),
+    );
     if (response) {
       this.setState({ movies: response.results, error: false });
     }

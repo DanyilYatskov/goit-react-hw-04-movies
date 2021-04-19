@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fetchAPI from '../Services/fetchAPI';
+import getMoviesByTag from '../Services/getMoviesByTag';
 //import BigTitle from '../components/BigTitle';
 import Loader from '../components/Loader';
 import MovieList from '../components/MovieList';
@@ -27,7 +27,7 @@ class MoviesView extends Component {
   }
 
   onNewSearch = ({ query }) => {
-    fetchAPI.resetPageToFirst();
+    getMoviesByTag.resetPageToFirst();
     this.setState({
       searchQuery: query,
       movies: [],
@@ -40,10 +40,10 @@ class MoviesView extends Component {
     this.setState({ showLoader: true });
     const { searchQuery } = this.state;
     const { location } = this.props;
-    fetchAPI.movieName = searchQuery;
+    getMoviesByTag.movieName = searchQuery;
     location.params = searchQuery;
-    fetchAPI
-      .searchMoviesbyTag()
+    getMoviesByTag
+      .searchMovies()
       .then(({ results }) => {
         if (results.length > 0) {
           this.setState({ movies: results, error: false });

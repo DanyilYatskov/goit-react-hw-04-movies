@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fetchAPI from '../../Services/fetchAPI';
+import getMovieReviews from '../../Services/getMovieReviews';
 //import { withRouter } from 'react-router-dom';
 import BigTitle from '../BigTitle';
 import Loader from '../Loader';
@@ -13,10 +13,8 @@ class MovieReviews extends Component {
 
   async componentDidMount() {
     this.setState({ loader: true, error: false });
-    //console.log('review props-', this.props);
     const { movieID } = this.props.match.params;
-    const reviews = await fetchAPI
-      .getMovieReviews(movieID)
+    const reviews = await getMovieReviews(movieID)
       .then(({ results }) => {
         if (results.length === 0) {
           this.setState({ error: true });

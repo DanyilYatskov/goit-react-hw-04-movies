@@ -44,3 +44,7 @@ const AdditionalMovieInfo = props => {
 };
 
 export default withRouter(AdditionalMovieInfo);
+
+AdditionalMovieInfo.propTypes = {
+  props: PropTypes.object,
+};

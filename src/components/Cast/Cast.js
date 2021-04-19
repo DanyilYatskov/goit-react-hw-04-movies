@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fetchAPI from '../../Services/fetchAPI';
+import getMovieCast from '../../Services/getMovieCast';
 import handleNoImage from '../../Services/handleNoImage';
 import BigTitle from '../BigTitle';
 import Loader from '../Loader';
@@ -15,8 +15,7 @@ class Cast extends Component {
   async componentDidMount() {
     this.setState({ loader: true, error: false });
     const { movieID } = this.props.match.params;
-    const cast = await fetchAPI
-      .getMovieCast(movieID)
+    const cast = await getMovieCast(movieID)
       .then(({ cast }) => {
         if (cast.length === 0) {
           this.setState({ error: true });

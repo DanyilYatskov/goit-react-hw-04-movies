@@ -1,5 +1,5 @@
 import { React, Component } from 'react';
-import fetchAPI from '../Services/fetchAPI';
+import getFullMovieInfo from '../Services/getFullMovieInfo';
 import MovieInfo from '../components/MovieInfo';
 import AdditionalMovieInfo from '../components/AdditionalMovieInfo';
 import routes from '../routes';
@@ -13,10 +13,6 @@ class MovieDetailsView extends Component {
 
   handleGoBack = () => {
     const { history } = this.props;
-    // if (location.state && location.state.from) {
-    //   //location.params = location.state.from.params;
-    //   return history.push(location.state.from);
-    // }
     if (this.state.goBackPage) {
       return history.push(this.state.goBackPage.from);
     }
@@ -26,8 +22,7 @@ class MovieDetailsView extends Component {
   async componentDidMount() {
     this.setState({ goBackPage: this.props.location.state });
     const { movieID } = this.props.match.params;
-    const response = await fetchAPI
-      .getFullMovieInfo(movieID)
+    const response = await getFullMovieInfo(movieID)
       .then(response => {
         if (response !== undefined) {
           return {
