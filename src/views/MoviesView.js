@@ -45,7 +45,9 @@ class MoviesView extends Component {
     getMoviesByTag
       .searchMovies()
       .then(({ results }) => {
-        if (results.length > 0) {
+        if (results.length === 0) {
+          this.setState({ error: true });
+        } else {
           this.setState({ movies: results, error: false });
         }
       })
@@ -58,7 +60,9 @@ class MoviesView extends Component {
     return (
       <>
         <SearchForm onSearchMovieByQuery={this.onNewSearch} />
-        {error && <BigTitle title="Server error , try again" />}
+        {error && (
+          <BigTitle title="Server error or no movies by this tag, try again" />
+        )}
         {showLoader && <Loader />}
         <MovieList movies={movies} />
       </>

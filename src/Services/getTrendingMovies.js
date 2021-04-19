@@ -14,6 +14,9 @@ const getTrendingMovies = (page = 1) => {
       }
     })
     .then(response => {
+      if (response.results.length === 0) {
+        return;
+      }
       trimmMovieYear(response);
       return getMoviesWithGenreNames(response);
     })
